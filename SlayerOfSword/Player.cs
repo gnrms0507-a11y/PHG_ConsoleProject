@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace SlayerOfSword
 {
-    internal class Player
+    class Player
     {
-        public static int gold = 500;
+        public static int gold = 500;   //첫 시작 골드 500원
 
         
 

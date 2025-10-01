@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace SlayerOfSword
 {
-    internal class Monster
+    class Monster
     {
+
     }
 }
