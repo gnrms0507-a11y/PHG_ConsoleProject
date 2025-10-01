@@ -9,8 +9,9 @@ namespace WordMaker
 {
     class MainPage
     {
-        BattlePage battlePage = new BattlePage();   //배틀페이지로 넘어가기위한 객체생성
-
+        private BattlePage battlePage = new BattlePage();   //배틀페이지로 넘어가기위한 객체생성
+        private Player user;    //플레이어의 정보를 받은 객체
+        
         public void PrintMainPage() //시작창 표시 및 게임시작 , 종료 선택
         {
             bool isOff = false;
@@ -37,26 +38,31 @@ namespace WordMaker
             Console.Write("2. 나가기");
             Console.SetCursorPosition(35, 25);
             Console.Write("===========");
-
+            
 
             while (isOff == false && isStart == false)    //종료버튼 누르면 종료 게임시작누르면 할일 선택
             {
                 ConsoleKeyInfo key = Console.ReadKey(true);
-                switch (key.Key)
+
+                if (key.Key == ConsoleKey.D1 || key.Key == ConsoleKey.NumPad1)
                 {
-                    case ConsoleKey.D1:
-                        isStart = true;
-                        Console.ResetColor();
-                        GameManager.Loading("Loading...", 2000);
-                        SelectMenu();
-                        break;
+                    isStart = true;
+                    Console.ResetColor();
+                    GameManager.Loading("Loading...", 2000);
 
-
-                    case ConsoleKey.D2:
-                        Console.ResetColor();
-                        isOff = true;
-                        break;
+                    if(Player.isPlayerReady==false)
+                    {
+                        user = Player.CreatePlayer();
+                    }
+                    
+                    SelectMenu();
                 }
+                else if (key.Key == ConsoleKey.D2 || key.Key == ConsoleKey.NumPad2)
+                {
+                    Console.ResetColor();
+                    isOff = true;
+                }
+
             }
 
         }
@@ -107,36 +113,43 @@ namespace WordMaker
                 Console.Write("===========");
 
 
+                if(Player.isPlayerReady==true)      //만약 플레이어 생성했으면 플레이어 이름 출력
+                {
+                    Console.ResetColor();
+                    Console.SetCursorPosition(65, 39);
+                    
+                    Console.Write($"플레이어명:{user.playerName}");
+                }
+
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
                 Console.SetCursorPosition(65, 40);
                 Console.Write($"현재 보유중인 골드 : {Player.gold} Gold");
                 Console.ResetColor();
 
                 ConsoleKeyInfo key = Console.ReadKey(true);
-                switch (key.Key)
+
+                //숫자키 1 과 넘버패드 사용
+                if(key.Key == ConsoleKey.D1 || key.Key == ConsoleKey.NumPad1)
                 {
-                    case ConsoleKey.D1:
+                    GameManager.Loading("전투페이지 입장중..", 1800);
+                    battlePage.SelectMonster();
+                }
+                else if(key.Key == ConsoleKey.D2 || key.Key == ConsoleKey.NumPad2)
+                {
 
-                        GameManager.Loading("전투페이지 입장중..", 1800);
-                        battlePage.SelectMonster();
-                        break;
+                }
+                else if(key.Key == ConsoleKey.D3 || key.Key == ConsoleKey.NumPad3)
+                {
 
-                    case ConsoleKey.D2:
+                }
+                else if(key.Key == ConsoleKey.D4 || key.Key == ConsoleKey.NumPad4)
+                {
 
-                        break;
-
-                    case ConsoleKey.D3:
-
-                        break;
-
-                    case ConsoleKey.D4:
-
-                        break;
-
-                    case ConsoleKey.D5:
-                        GameManager.Loading("메인 화면으로 이동중..", 1000);
-                        PrintMainPage();
-                        break;
+                }
+                else if(key.Key == ConsoleKey.D5 || key.Key == ConsoleKey.NumPad5)
+                {
+                    GameManager.Loading("메인 화면으로 이동중..", 1000);
+                    PrintMainPage();
                 }
 
             }

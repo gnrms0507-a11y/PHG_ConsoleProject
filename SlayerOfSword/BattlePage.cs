@@ -9,13 +9,14 @@ namespace WordMaker
 {
     enum MonsterList
     {
-        고블린의숲,구울의소굴,거인의설원,골렘사원,드래곤둥지,드래곤무덤,메인으로, End
+        고블린의숲=1,구울의소굴,거인의설원,골렘사원,드래곤둥지,드래곤무덤,메인으로, End
     }
  
-    public struct Vector      //몬스터 위치 선정
+    public struct Vector      //던전 몬스터 위치 선정
     {
         public int x;
         public int y;
+
     }
     class BattlePage
     {
@@ -27,38 +28,41 @@ namespace WordMaker
 
         public void SelectMonster()
         {
-            bool isMain = false;   //메인으로 돌아가기 버튼 선택여부
-
-            vector.x = 10;
-            vector.y = 5;
+            bool isInputKey = false;   //메인으로 돌아가기 버튼 선택여부
+            bool isMain = false;
             
             Console.ResetColor();
             Console.Clear();
             
-            while (isMain==false)
+
+            while (isInputKey == false)
             {
-                for (int i = 0; i < (int)MonsterList.End; i++)      //몬스터 리스트 출력
+                vector.x = 10;
+                vector.y = 5;
+
+                for (int i = 1; i < (int)MonsterList.End; i++)      //몬스터 리스트 출력
                 {
 
-                    if(clearDragon>=5 && (MonsterList)i ==MonsterList.드래곤무덤)
+                    if (clearDragon >= 5 && (MonsterList)i == MonsterList.드래곤무덤)
                     {
                         Console.ForegroundColor = ConsoleColor.DarkRed;
                         Console.SetCursorPosition(vector.x, vector.y);
-                        Console.Write("===========");
-                        Console.SetCursorPosition(vector.x, vector.y+1);
-                        Console.Write($"{i}.{(MonsterList)i}");
-                        Console.SetCursorPosition(vector.x, vector.y+2);
-                        Console.Write("===========");
+                        Console.Write("┌━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┒");
+                        Console.SetCursorPosition(vector.x, vector.y + 1);
+                        Console.Write($" {i}.{(MonsterList)i}");
+                        Console.SetCursorPosition(vector.x, vector.y + 2);
+                        Console.Write("└━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┚");
                     }
-                    else if(clearDragon < 5 && (MonsterList)i == MonsterList.드래곤무덤)
+
+                    else if (clearDragon < 5 && (MonsterList)i == MonsterList.드래곤무덤)
                     {
                         Console.ForegroundColor = ConsoleColor.Gray;
                         Console.SetCursorPosition(vector.x, vector.y);
-                        Console.Write("===========");
-                        Console.SetCursorPosition(vector.x, vector.y+1);
-                        Console.Write("???????");
-                        Console.SetCursorPosition(vector.x, vector.y+2);
-                        Console.Write("===========");
+                        Console.Write("┌━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┒");
+                        Console.SetCursorPosition(vector.x, vector.y + 1);
+                        Console.Write($" {i}.???????");
+                        Console.SetCursorPosition(vector.x, vector.y + 2);
+                        Console.Write("└━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┚");
                     }
                     else
                     {
@@ -82,29 +86,48 @@ namespace WordMaker
                         {
                             Console.ForegroundColor = ConsoleColor.Red;
                         }
-                        else if((MonsterList)i == MonsterList.메인으로)
+                        else if ((MonsterList)i == MonsterList.메인으로)
                         {
                             Console.ResetColor();
                         }
-
+  
                         Console.SetCursorPosition(vector.x, vector.y);
-                        Console.Write("===========");
+                        Console.Write("┌━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┒");
                         Console.SetCursorPosition(vector.x, vector.y + 1);
-                        Console.Write($"{i}.{(MonsterList)i}");
+                        Console.Write($" {i}.{(MonsterList)i}");
                         Console.SetCursorPosition(vector.x, vector.y + 2);
-                        Console.Write("===========");
+                       
+                        Console.Write("└━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┚");
                     }
 
-                        vector.y += 5;
+                    vector.y += 5;
                 }
 
-                Console.ReadKey();
+                //Console.ForegroundColor = ConsoleColor.DarkYellow;
+                //Console.SetCursorPosition(65, 40);  //고정좌표임. 플레이어 정보 출력할것
+                //Console.Write($"현재 보유중인 골드 : {Player.gold} Gold");
+                //Console.ForegroundColor = ConsoleColor.Gray;
+                //Console.SetCursorPosition(65, 41);  //고정좌표임. 플레이어 공격력 방어력 출력
+                //Console.Write($"공격력: {Player.power} 방어력: {Player.armor}");
+                //Console.ForegroundColor = ConsoleColor.DarkRed;
+                //Console.SetCursorPosition(65, 42);  //고정좌표임. 플레이어 Hp 출력할것
+                //Console.Write($"현재 HP: {Player.currentHp}/{Player.maxHp}");
+                //Console.ForegroundColor = ConsoleColor.DarkBlue;
+                //Console.SetCursorPosition(65, 43);  //고정좌표임. 플레이어 Mp 출력할것
+                //Console.Write($"현재 MP: {Player.currentMp}/{Player.maxMp}");
+                //Console.ResetColor();
 
-
-                Console.ForegroundColor = ConsoleColor.DarkYellow;
-                Console.SetCursorPosition(65, 40);
-                Console.Write($"현재 보유중인 골드 : {Player.gold} Gold");
+                BattleMonster(Console.ReadKey());   //몬스터 배틀 호출
             }
         }
+
+        public void BattleMonster(ConsoleKeyInfo keyInfo)
+        {
+           
+            
+        }
+
+
+
     }
 }
