@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using WordMaker;
+using EnumManager;
 
 namespace SlayerOfSword
 {
@@ -70,7 +71,7 @@ namespace SlayerOfSword
             Console.ResetColor();
         }
 
-        public void Loading(string text,int millLoad)        //로딩기능 - 텍스트는 인자값을 받아 접속중, 로딩중 등등
+        public  void Loading(string text,int millLoad)        //로딩기능 - 텍스트는 인자값을 받아 접속중, 로딩중 등등
         {
 
             windowSize.width = 80;
@@ -89,6 +90,46 @@ namespace SlayerOfSword
             }
             
         }
+
+        public T MoveMenu<T>(T value) where T : Enum //열거형을 받아와서 선택한 키와 알맞은 열거형을 반환하는 메서드
+        {
+            bool isSelectMenu = false; //메뉴선택여부 확인
+
+            T selectValue = default(T); //T(열거형)의 기본값을 할당함
+
+
+            T[] values = (T[])Enum.GetValues(typeof(T));    //어떤 Enum형식이 들어올지 모르므로 메서드가 받은 enum타입을 가져와서 T배열로 만듬
+
+            while (!isSelectMenu)      //메뉴 선택시 루프종료
+            {
+                //사용자의 키 받아오기
+                ConsoleKeyInfo key = Console.ReadKey(true);
+
+                string inputkey = key.KeyChar.ToString(); //읽어온 키값을 char형으로 변환후 다시 string으로 변환함(비교용이)
+
+                //숫자키 1 과 넘버패드 사용
+
+                foreach(T choice in values)
+                {
+                    int intVal = Convert.ToInt32(choice);
+
+                    if(inputkey == intVal.ToString())
+                    {
+                        selectValue = choice;
+                        isSelectMenu = true;
+                        break;
+                    }
+                }
+
+
+            }
+            return selectValue;
+
+
+        }
+
+
+
 
     }
 }

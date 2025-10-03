@@ -37,8 +37,7 @@ namespace SlayerOfSword
 
         public static Player CreatePlayer()   //사용자에게 이름을 입력받아 플레이어 생성
         {
-            Console.ResetColor();
-            Console.Clear();
+             Console.Clear();
 
             string name = null;
 
@@ -71,6 +70,7 @@ namespace SlayerOfSword
 
             Player player = new Player(name);
             Console.Title = "Slayer Of Sword : "+name; //콘솔의 타이틀지정
+            Console.ResetColor();
             return player;
 
         }
@@ -86,27 +86,27 @@ namespace SlayerOfSword
                 Console.Write($"Name:{playerName}");
             }
 
-           
             Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.SetCursorPosition(vector.x, vector.y);  //고정좌표임. 플레이어 정보 출력할것
+            Console.SetCursorPosition(vector.x, vector.y);  // 플레이어 정보 출력할것
             Console.Write($"Gold : {Player.gold}");
 
             Console.ForegroundColor = ConsoleColor.Gray;
-            Console.SetCursorPosition(vector.x, vector.y+1);  //고정좌표임. 플레이어 공격력 방어력 출력
+            Console.SetCursorPosition(vector.x, vector.y+1);  // 플레이어 공격력 방어력 출력
             Console.Write($"Attack: {power}");
 
             Console.SetCursorPosition(vector.x, vector.y + 2);
             Console.Write($"Defense: {armor}");
 
             Console.ForegroundColor = ConsoleColor.DarkRed;
-            Console.SetCursorPosition(vector.x, vector.y+3);  //고정좌표임. 플레이어 Hp 출력할것
+            Console.SetCursorPosition(vector.x, vector.y+3);  // 플레이어 Hp 출력할것
             Console.Write($"HP: {Player.currentHp}/{maxHp}");
 
             Console.ForegroundColor = ConsoleColor.DarkBlue;
-            Console.SetCursorPosition(vector.x, vector.y+4);  //고정좌표임. 플레이어 Mp 출력할것
+            Console.SetCursorPosition(vector.x, vector.y+4);  // 플레이어 Mp 출력할것
             Console.Write($"MP: {Player.currentMp}/{maxMp}");
             Console.ResetColor();
         }
+
         public void PrintPlayerInfo(int _power, int _armor, int _maxHp, int _maxMp)     //오버로딩
         {
             power += _power;
@@ -122,20 +122,6 @@ namespace SlayerOfSword
             {
                 currentMp = maxMp;
             }
-
-            //Console.ForegroundColor = ConsoleColor.DarkYellow;
-            //Console.SetCursorPosition(65, 40);  //고정좌표임. 플레이어 정보 출력할것
-            //Console.Write($"현재 보유중인 골드 : {Player.gold} Gold");
-            //Console.ForegroundColor = ConsoleColor.Gray;
-            //Console.SetCursorPosition(65, 41);  //고정좌표임. 플레이어 공격력 방어력 출력
-            //Console.Write($"공격력: {power} 방어력: {armor}");
-            //Console.ForegroundColor = ConsoleColor.DarkRed;
-            //Console.SetCursorPosition(65, 42);  //고정좌표임. 플레이어 Hp 출력할것
-            //Console.Write($"현재 HP: {Player.currentHp}/{maxHp}");
-            //Console.ForegroundColor = ConsoleColor.DarkBlue;
-            //Console.SetCursorPosition(65, 43);  //고정좌표임. 플레이어 Mp 출력할것
-            //Console.Write($"현재 MP: {Player.currentMp}/{maxMp}");
-            //Console.ResetColor();
 
 
         }
