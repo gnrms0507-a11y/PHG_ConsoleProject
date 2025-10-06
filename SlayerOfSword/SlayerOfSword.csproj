@@ -48,6 +48,8 @@
     <Compile Include="Inventory.cs" />
     <Compile Include="MainPage.cs" />
     <Compile Include="Monster.cs" />
+    <Compile Include="Monster_2.cs" />
+    <Compile Include="Player_2.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

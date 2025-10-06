@@ -10,7 +10,7 @@ using EnumManager;
 
 namespace SlayerOfSword
 {
-    delegate void GameStart();
+    delegate void GameStart();  //게임실행 델리게이트 생성
     struct TextVector      //텍스트 작성 위치 선정
     {
         public int x;
@@ -73,12 +73,12 @@ namespace SlayerOfSword
 
         public  void Loading(string text,int millLoad)        //로딩기능 - 텍스트는 인자값을 받아 접속중, 로딩중 등등
         {
-
+            Console.ForegroundColor = ConsoleColor.Gray;
             windowSize.width = 80;
             windowSize.height = 50;
 
             Console.Clear();
-            Console.ResetColor();
+            
            
             Console.SetCursorPosition(windowSize.width / 2 - text.Length, windowSize.height / 2 - 3);
             Console.Write(text);
@@ -88,10 +88,11 @@ namespace SlayerOfSword
                 Console.Write(" .");
                 Thread.Sleep(millLoad/3);
             }
-            
+            Console.ForegroundColor = ConsoleColor.Gray;
+
         }
 
-        public T MoveMenu<T>(T value) where T : Enum //열거형을 받아와서 선택한 키와 알맞은 열거형을 반환하는 메서드
+        public T MoveMenu<T>(T value) where T : Enum //열거형을 받아와서 선택한 키와 알맞은 열거형을 반환하는 메서드 - 페이지에서 메뉴선택할때 사용
         {
             bool isSelectMenu = false; //메뉴선택여부 확인
 

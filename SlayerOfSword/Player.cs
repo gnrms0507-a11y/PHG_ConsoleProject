@@ -8,7 +8,7 @@ using System.Xml.Linq;
 
 namespace SlayerOfSword
 {
-    class Player
+    partial class Player    //플레이어 생성 및 기본 세팅
     {
         public static int gold = 500;   //첫 시작 골드 500원
         public int power { get; set; }
@@ -19,26 +19,33 @@ namespace SlayerOfSword
 
         public static int currentHp;    //현재 Hp, Mp
         public static int currentMp;
+        //public static int playerExp; //경험치는 추후에..
 
         public static bool isPlayerReady = false;   //플레이어가 이미 만들어있는지 check하기위한 변수
 
-        TextVector vector;
+        TextVector vector;  //GameManager.cs의 TextVector 가져옴
+
+       
 
         public Player(string _Name)     //플레이어 맨처음 생성시 스탯과 이름
         {
-            power = 10;
+            power = 25;
             armor = 5;
-            maxHp = 300;
-            maxMp = 100;
-            currentHp = 300;
-            currentMp = 100;
+            maxHp = 999;
+            maxMp = 120;
+            currentHp = 999;
+            currentMp = 120;
             playerName = _Name;
+
+            //플레이어 기본스킬 3개 등록
+            PlayerBasicSkill();
+            
         }
 
         public static Player CreatePlayer()   //사용자에게 이름을 입력받아 플레이어 생성
         {
              Console.Clear();
-
+            Console.ForegroundColor = ConsoleColor.Gray;
             string name = null;
 
             bool isPlayerName = false;
@@ -70,19 +77,19 @@ namespace SlayerOfSword
 
             Player player = new Player(name);
             Console.Title = "Slayer Of Sword : "+name; //콘솔의 타이틀지정
-            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Gray;
             return player;
 
         }
         public void PrintPlayerInfo()       //플레이어 생성이 완료되었다면 플레이어의 정보를 입력할것
         {
+            Console.ForegroundColor = ConsoleColor.Gray;
             vector.x = 55;
             vector.y = 35;
             if (Player.isPlayerReady == true)      //만약 플레이어 생성했으면 플레이어 이름 출력
             {
-                Console.ResetColor();
+                Console.ForegroundColor = ConsoleColor.Gray;
                 Console.SetCursorPosition(vector.x, vector.y-1);
-
                 Console.Write($"Name:{playerName}");
             }
 
@@ -104,10 +111,10 @@ namespace SlayerOfSword
             Console.ForegroundColor = ConsoleColor.DarkBlue;
             Console.SetCursorPosition(vector.x, vector.y+4);  // 플레이어 Mp 출력할것
             Console.Write($"MP: {Player.currentMp}/{maxMp}");
-            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Gray;
         }
 
-        public void PrintPlayerInfo(int _power, int _armor, int _maxHp, int _maxMp)     //오버로딩
+        public void UpdatePlayer(int _power, int _armor, int _maxHp, int _maxMp)     //플레이어 능력치 업데이트
         {
             power += _power;
             armor += _armor;

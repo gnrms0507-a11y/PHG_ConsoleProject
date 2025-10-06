@@ -48,7 +48,7 @@ namespace SlayerOfSword
             vector.x = 5;  //텍스트를 입력하기위한 커서좌표 지정
             vector.y = 8;
 
-            for(int i= (int)Menu.Start+1; i< (int)Menu.End; i++)    //위 선언한 열거형 메뉴 출력
+            for(int i= 1; i<= (int)Menu.Back; i++)    //위 선언한 열거형 메뉴 출력
             {
              
                 Console.SetCursorPosition(vector.x, vector.y);
