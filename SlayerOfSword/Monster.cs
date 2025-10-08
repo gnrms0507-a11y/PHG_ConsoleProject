@@ -1,12 +1,13 @@
 ﻿using EnumManager;
 using System;
+using System.Linq;
 using System.Threading;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace SlayerOfSword
 {
     
-     abstract partial class Monster      //추상클래스 Monster 생성 길이가 길어서 partical로.
+    public abstract partial class Monster      //고블린 ~ 스노우맨 세팅
     {
         
          public enum MonsterSKillList       //몬스터들이 사용할 스킬리스트
@@ -26,17 +27,6 @@ namespace SlayerOfSword
             DragonSlayer2NormalAttack,FlameSword, BladeTempest,SwordJudgement, End
         }
 
-
-        //몬스터의 스킬 소모 mp
-        //public int[] monsterSkillMp = new int[(int)MonsterSKillList.End]
-        //{ 0, 10,
-        //    0, 15, 10,
-        //    0, 30, 20,
-        //    0, 45, 20,
-        //    0, 50, 35, 30,
-        //    0, 50, 30,
-        //    0, 70, 100, 150, 300 };  //맨끝은 End =0
-
         //몬스터 스킬의 데미지 나열
         public int[] monsterSkillDemage = new int[(int)MonsterSKillList.End]
         { 0, 18,
@@ -55,6 +45,7 @@ namespace SlayerOfSword
         public int currentMonsterHp { get; set; }
         public int currentMonsterMp { get; set; }
         
+        public bool isPage2 { get; set; }   //2페이즈여부 확인
         public int monsterRewardGold { get; set; }
 
         public string monsterCreateText { get; set; }   //몬스터 생성시 텍스트
@@ -65,7 +56,10 @@ namespace SlayerOfSword
 
         TextVector textVector = new TextVector();   //텍스트 출력 좌표지정
 
-        public void PrintMonsterText(string text,ConsoleColor _consoleColor)      //몬스터 대사 출력
+        public Item[] monsterRewardItem;  //몬스터의 보상아이템
+
+        //몬스터 대사 출력
+        public void PrintMonsterText(string text,ConsoleColor _consoleColor)      
         {
             
             textVector.x = 80;
@@ -86,13 +80,15 @@ namespace SlayerOfSword
             Console.ForegroundColor = ConsoleColor.Gray;
 
         }
-        public void PrintMonsterText(string mobName ,int reward)       //몬스터 보상 출력 , 오버로딩
+
+        //몬스터 보상 출력 , 오버로딩
+        public void PrintMonsterText(Monster _monster ,int reward)       
         {
 
             textVector.x = 80;
             textVector.y = 50;
 
-            string rewardText = mobName + " 과의 전투에서 승리하였다.";
+            string rewardText = _monster.MonsterName + " 과의 전투에서 승리하였다.";
 
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Gray;
@@ -104,16 +100,56 @@ namespace SlayerOfSword
                 Thread.Sleep(60);
             }
 
-            Console.SetCursorPosition(textVector.x / 2 - "만큼의 Gold를 휙득!".Length-3, textVector.y / 2 - 2);
+            Console.SetCursorPosition(textVector.x / 2 - rewardText.Length, textVector.y / 2 - 2);
             Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.Write($"{reward.ToString()} 만큼의 Gold를 휙득!");
+            Console.WriteLine($"{reward.ToString()} 만큼의 Gold를 휙득!");
             Player.gold += reward;  //보상골드 증가
-            Console.SetCursorPosition(0, 0);
+
+            bool isDropItem = (Inventory.playerInventory.Count >10) ? true : false;   //인벤토리가 꽉찼을 경우로 10개이상 인벤토리에 있으면 더이상못가짐
+
+            if (!isDropItem)
+            {
+                Random itemDrop = new Random();
+                int dropItemPerCent = itemDrop.Next(1, 4); //1~3까지 수 뽑음
+
+                //int dropItemPerCent = 3; //테스트용
+
+                //3을뽑을경우 당첨 - 아이템드랍
+                if (dropItemPerCent == 3)
+                {
+                    //당첨되었을경우 (3)뽑음 , 몬스터의 보상개수만큼 난수를 받아 보상 받기
+
+                    int dropIndex = itemDrop.Next(0, monsterRewardItem.Length);
+
+                    Console.SetCursorPosition(textVector.x / 2 - rewardText.Length, textVector.y / 2 - 1);
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    Console.Write($"{_monster.MonsterName} 에게서 ");
+
+                    //아이템 등급에 따른 폰트색 지정
+                    Inventory.ItemColor(_monster.monsterRewardItem[dropIndex]);
+
+                    Console.Write($"{(_monster.monsterRewardItem[dropIndex]).itemName}");
+
+                    Console.ForegroundColor = ConsoleColor.Gray;
+
+                    Console.WriteLine(" 을 획득하였다");
+
+                    //인벤토리에 아이템추가 Key 는 인벤토리카운트
+                    Inventory.playerInventory.Add(_monster.monsterRewardItem[dropIndex]);
+                }
+            }
+            else if (isDropItem)
+            {
+                Console.SetCursorPosition(textVector.x / 2 - rewardText.Length, textVector.y / 2 - 1);
+                Console.ForegroundColor = ConsoleColor.Gray;
+                Console.Write($"아이템을 더이상 획득할수 없습니다. 인벤토리를 비워주세요");
+            }
+
+                Console.SetCursorPosition(0, 0);
             Console.ForegroundColor = ConsoleColor.Gray;
             Thread.Sleep(1000);
 
         }
-
 
         public void PrintMonsterHp(Monster _monster)        //몬스터 피통출력
         {
@@ -153,10 +189,19 @@ namespace SlayerOfSword
             this.MonsterDefense = 4;
             this.currentMonsterHp = 100;
             this.currentMonsterMp = 50;
-            this.monsterRewardGold = 20;
+            this.monsterRewardGold = 15;
 
             this.monsterCreateText = "인간은 참 어리석단말야.. 크크크";
             this.playerLoseText = "역시 인간은 어리석어 크크크크";
+
+
+
+            //고블린의 아이템 보상목록
+            this.monsterRewardItem = new Item[3];
+            this.monsterRewardItem[0] = new Weapon(WeaponList.LongSword, 4, ItemGrade.Normal);
+            this.monsterRewardItem[1] = new Armor(ArmorList.IronMail, 5,PlusHp:50, PlusMp:30, ItemGrade.Normal);
+            this.monsterRewardItem[2] = new Armor(ArmorList.ScoutArmor, 5,PlusHp:60, PlusMp:40, ItemGrade.Normal);
+
 
             PrintMonsterText(this.monsterCreateText, ConsoleColor.Green);     // 몬스터 대사치기
             Console.Clear();
@@ -191,10 +236,18 @@ namespace SlayerOfSword
             this.MonsterDefense = 6;
             this.currentMonsterHp = 150;
             this.currentMonsterMp = 65;
-            this.monsterRewardGold = 35;
+            this.monsterRewardGold = 25;
 
             this.monsterCreateText = "인간이다.. 맛있는 냄새..";
             this.playerLoseText = "인간 피 .. 맛있다 크큭..";
+
+            //구울의 아이템 보상목록
+            this.monsterRewardItem = new Item[4];
+            this.monsterRewardItem[0] = new Weapon(WeaponList.IronBlade, 6, ItemGrade.Normal);
+            this.monsterRewardItem[1] = new Armor(ArmorList.ScoutArmor, 5, PlusHp: 60, PlusMp: 40, ItemGrade.Normal);
+            this.monsterRewardItem[2] = new Weapon(WeaponList.CrimsonSaber, 10, ItemGrade.Rare);
+            this.monsterRewardItem[3] = new Armor(ArmorList.CrimsonMail, 8, PlusHp: 80, PlusMp: 60, ItemGrade.Rare);
+
 
             PrintMonsterText(this.monsterCreateText, ConsoleColor.Magenta);     // 몬스터 대사치기
             Console.Clear();
@@ -228,10 +281,18 @@ namespace SlayerOfSword
 
             this.currentMonsterHp = 270;
             this.currentMonsterMp = 100;
-            this.monsterRewardGold = 60;
+            this.monsterRewardGold = 40;
 
             this.monsterCreateText = "조그만녀석, 눈사람으로 만들어주마 !";
             this.playerLoseText = "눈사람이 되었구나 부숴지거라!!";
+
+            //스노우맨의 아이템 보상목록
+            this.monsterRewardItem = new Item[5];
+            this.monsterRewardItem[0] = new Weapon(WeaponList.IronBlade, 6, ItemGrade.Normal);
+            this.monsterRewardItem[1] = new Weapon(WeaponList.CrimsonSaber, 10, ItemGrade.Rare);
+            this.monsterRewardItem[2] = new Armor(ArmorList.CrimsonMail, 8, PlusHp: 80, PlusMp: 60, ItemGrade.Rare);
+            this.monsterRewardItem[3] = new Armor(ArmorList.CelestialMail, 10, PlusHp: 100, PlusMp: 60, ItemGrade.Rare);
+            this.monsterRewardItem[4] = new Weapon(WeaponList.Frostbrand, 16, ItemGrade.Epic);
 
             PrintMonsterText(this.monsterCreateText, ConsoleColor.DarkBlue);     // 몬스터 대사치기
    

@@ -10,7 +10,7 @@ using static SlayerOfSword.Monster;
 
 namespace SlayerOfSword
 {
-    abstract partial class Monster
+    abstract partial class Monster //골렘 ~ 드래곤슬레이어2페이즈
     {
 
         public static bool isDragonSlayer2Page = false;  //드래곤슬레이어의 2페이즈 여부
@@ -61,10 +61,20 @@ namespace SlayerOfSword
                 this.currentMonsterHp = 450;
                 this.currentMonsterMp = 280;
 
-                this.monsterRewardGold = 250;
+                this.monsterRewardGold = 150;
 
                 this.monsterCreateText = "적 발견.. 제거 ..";
                 this.playerLoseText = "생체반응 없음.. 제거 완료..";
+
+                //골렘의 아이템 보상목록
+                this.monsterRewardItem = new Item[5];
+                this.monsterRewardItem[0] = new Weapon(WeaponList.Frostbrand, 16, ItemGrade.Epic);
+                this.monsterRewardItem[1] = new Armor(ArmorList.CelestialMail, 10, PlusHp: 100, PlusMp: 60, ItemGrade.Rare);
+                this.monsterRewardItem[2] = new Weapon(WeaponList.Thunderclash, 18, ItemGrade.Epic);
+                this.monsterRewardItem[3] = new Armor(ArmorList.Stormplate, 15, PlusHp: 150, PlusMp: 100, ItemGrade.Epic);
+                this.monsterRewardItem[4] = new Armor(ArmorList.FrostSentinel, 20, PlusHp: 180, PlusMp: 120, ItemGrade.Unique);
+
+
 
                 PrintMonsterText(this.monsterCreateText, ConsoleColor.Cyan);     // 몬스터 대사치기
 
@@ -96,10 +106,19 @@ namespace SlayerOfSword
                 this.MonsterDefense = 40;
                 this.currentMonsterHp = 750;
                 this.currentMonsterMp = 480;
-                this.monsterRewardGold = 680;
+                this.monsterRewardGold = 320;
 
                 this.monsterCreateText = "인간이여 .. 두려움에 몸부림치거라";
                 this.playerLoseText = "나약하기 짝이없군 인간녀석 크하하하";
+
+                //드래곤의 아이템 보상목록
+                this.monsterRewardItem = new Item[6];
+                this.monsterRewardItem[0] = new Weapon(WeaponList.Thunderclash, 18, ItemGrade.Epic);
+                this.monsterRewardItem[1] = new UniqueWeapon(WeaponList.Lumina, 25, ItemGrade.Unique);
+                this.monsterRewardItem[2] = new UniqueWeapon(WeaponList.Ragnarok, 28, ItemGrade.Unique);
+                this.monsterRewardItem[3] = new Armor(ArmorList.Stormplate, 15, PlusHp: 150, PlusMp: 100, ItemGrade.Epic);
+                this.monsterRewardItem[4] = new Armor(ArmorList.FrostSentinel, 20, PlusHp: 180, PlusMp: 120, ItemGrade.Unique);
+                this.monsterRewardItem[5] = new Armor(ArmorList.Thunderplate, 22, PlusHp: 200, PlusMp: 120, ItemGrade.Unique);
 
                 PrintMonsterText(this.monsterCreateText, ConsoleColor.Red);     // 몬스터 대사치기
 
@@ -130,9 +149,9 @@ namespace SlayerOfSword
                 this.MonsterMp = 350;
                 this.MonsterPower = 65;
                 this.MonsterDefense = 35;
-                this.currentMonsterHp = 1;
+                this.currentMonsterHp = 600;
                 this.currentMonsterMp = 350;
-                this.monsterRewardGold = 1200;
+                
 
                 this.monsterCreateText = "드래곤은 지겹도록 죽여왔지.. 다음은 인간인가?";
                 this.playerLoseText = "약하다.. 너무 약해.. 강한녀석은 없는건가";
@@ -173,10 +192,21 @@ namespace SlayerOfSword
                 this.MonsterDefense = 40;
                 this.currentMonsterHp = 1000;
                 this.currentMonsterMp = 650;
-
+                this.isPage2 = true;
                 this.monsterCreateText = "꽤 쓸만하군.. 이것도 받아보거라";
                 this.playerLoseText = "꽤나 쓸만한녀석이었는데 아깝게되었군..";
-              
+
+                this.monsterRewardGold = 650;
+
+                //드래곤슬레이어의 아이템 보상목록
+                this.monsterRewardItem = new Item[6];
+                this.monsterRewardItem[0] = new UniqueWeapon(WeaponList.Lumina, 25, ItemGrade.Unique);
+                this.monsterRewardItem[1] = new UniqueWeapon(WeaponList.Ragnarok, 28, ItemGrade.Unique);
+                this.monsterRewardItem[2] = new LegendWeapon(WeaponList.Eternity, 40, ItemGrade.Legend);
+                this.monsterRewardItem[3] = new Armor(ArmorList.FrostSentinel, 20, PlusHp: 180, PlusMp: 120, ItemGrade.Unique);
+                this.monsterRewardItem[4] = new Armor(ArmorList.Thunderplate, 22, PlusHp: 200, PlusMp: 120, ItemGrade.Unique);
+                this.monsterRewardItem[5] = new Armor(ArmorList.DivineSentinel, 40, PlusHp: 280, PlusMp: 200, ItemGrade.Legend);
+
                 PrintMonsterText(this.monsterCreateText, ConsoleColor.DarkRed);     // 몬스터 대사치기
 
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EnumManager;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,9 +9,9 @@ using System.Xml.Linq;
 
 namespace SlayerOfSword
 {
-    partial class Player    //플레이어 생성 및 기본 세팅
+     public partial class Player    //플레이어 생성 및 기본 세팅
     {
-        public static int gold = 500;   //첫 시작 골드 500원
+        public static int gold = 300;   //첫 시작 골드 300
         public int power { get; set; }
         public int armor { get; set; }
         public int maxHp { get; set; }
@@ -25,21 +26,31 @@ namespace SlayerOfSword
 
         TextVector vector;  //GameManager.cs의 TextVector 가져옴
 
-       
+
+        public Weapon[] playerWeapon = new Weapon[1];
+        public Armor[] playerArmor = new Armor[1];
+
 
         public Player(string _Name)     //플레이어 맨처음 생성시 스탯과 이름
         {
             power = 25;
-            armor = 5;
-            maxHp = 999;
+            armor = 2;
+            maxHp = 280;    //원래280임
             maxMp = 120;
-            currentHp = 999;
+            currentHp = 280;
             currentMp = 120;
             playerName = _Name;
 
+            //플레이어 기본 무기,방어구 장착
+            playerWeapon[0] = new Weapon(WeaponList.TrainingSword,3,ItemGrade.Normal);
+            playerArmor[0] = new Armor(ArmorList.TrainingArmor,_defense: 3,PlusHp:50, PlusMp:20, ItemGrade.Normal);
+
+            //플레이어 공,방 업데이트
+            UpdatePlayer(playerWeapon[0], playerArmor[0]);
+
             //플레이어 기본스킬 3개 등록
             PlayerBasicSkill();
-            
+
         }
 
         public static Player CreatePlayer()   //사용자에게 이름을 입력받아 플레이어 생성
@@ -114,22 +125,35 @@ namespace SlayerOfSword
             Console.ForegroundColor = ConsoleColor.Gray;
         }
 
-        public void UpdatePlayer(int _power, int _armor, int _maxHp, int _maxMp)     //플레이어 능력치 업데이트
+        //플레이어 능력치 업데이트 무기 ,방어구 장착
+        public void UpdatePlayer(Weapon _weapon , Armor _armor)   
         {
-            power += _power;
-            armor += _armor;
-            maxHp += _maxHp;
-            maxMp += _maxMp;
+            power = 25;
+            armor = 2;
+            maxHp = 280;    //원래280임
+            maxMp = 120;
+        
+            this.power += _weapon.plusPower;
+            this.armor += _armor.plusDefense;
 
-            if (currentHp >= maxHp)  //현재 HP와 MP가 최대 HP ,MP 이상일시 현재체력을 최대 HP,MP로 지정
+            if (currentHp >= maxHp)  //현재 HP와 MP가 최대 HP ,MP 이상일시 현재체력을 최대 HP,MP로 지정 아닐경우 max Hp/ Mp 만 증감
             {
+                this.maxHp += _armor.plusHp;
                 currentHp = maxHp;
             }
-            else if (currentMp >= maxMp)
+            else if(currentHp < maxHp)
             {
+                this.maxHp += _armor.plusHp;
+            }
+            if (currentMp >= maxMp)
+            {
+                this.maxMp += _armor.plusMp;
                 currentMp = maxMp;
             }
-
+            else if( currentMp < maxMp)
+            {
+                this.maxMp += _armor.plusMp;
+            }
 
         }
 

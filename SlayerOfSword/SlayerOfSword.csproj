@@ -44,8 +44,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BattlePage.cs" />
-    <Compile Include="GameManager.cs" />
+    <Compile Include="Inventory_2.cs" />
     <Compile Include="Inventory.cs" />
+    <Compile Include="GameManager.cs" />
+    <Compile Include="Item.cs" />
     <Compile Include="MainPage.cs" />
     <Compile Include="Monster.cs" />
     <Compile Include="Monster_2.cs" />
@@ -54,7 +56,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SaveMonsterASCIIArt.cs" />
-    <Compile Include="Store.cs" />
+    <Compile Include="Recovery.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

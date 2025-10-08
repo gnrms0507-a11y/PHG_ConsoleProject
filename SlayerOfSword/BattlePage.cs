@@ -21,7 +21,7 @@ namespace SlayerOfSword
         int[] DifficultycolorIndex = new int[(int)Difficulty.Back+1] {0,10,2,7,12,4,5,7};//난이도와의 컬러매칭을 위한 ConsoleColor Indexing 시작 Start, 0으로 구별
 
 
-        public static int clearDragon = 5;  //드래곤슬레이어와 전투 드래곤 5회잡으면 잠금해제
+        public static int clearDragon = 0;  //드래곤슬레이어와 전투 드래곤 5회잡으면 잠금해제
 
         TextVector vector= new TextVector();    //SlayerOfSword 네임스페이스 안에있는 구조체임. GameManager.cs파일에서 정의하였음
 
@@ -65,17 +65,13 @@ namespace SlayerOfSword
             Console.ForegroundColor = ConsoleColor.Gray;
         }
 
-        public void SelectMonster(MonsterList monstertName,out bool? isBattle)
+        public void SelectMonster(MonsterList monstertName,out bool isLock)
         {
             vector.x = 25;
             vector.y = 45;
-
+            isLock = false;
             Console.SetCursorPosition(vector.x, vector.y);
-
-            string inputkey = null;
-
-            isBattle = null;
-
+           
             if (monstertName != MonsterList.Back)     //battlePage에서 Back을 선택하지 않은경우실행
             {
                 for (int i = 1; i <= (int)MonsterList.Back; i++)
@@ -86,39 +82,11 @@ namespace SlayerOfSword
 
                         if(((MonsterList)i)==MonsterList.DragonSlayer && clearDragon<5)     //드래곤슬레이어가 잠겨있으면아무것도안함
                         {
-                            Console.Write($"현재 잠겨있습니다. 드래곤 처치횟수: {clearDragon}/5");
+                            Console.Write($"현재 잠겨있습니다. 드래곤 처치: {clearDragon}/5");
                             Thread.Sleep(1000);
-                            isBattle = false;
+                            isLock = true;
                         }
-                        else
-                        {
-                            Console.Write($"{monstertName}");
-                            Console.ForegroundColor = ConsoleColor.Gray;
-
-                            Console.Write($" 과 전투를 실행하시겠습니까 ? ");
-                            Console.SetCursorPosition(vector.x, vector.y + 1);
-                            Console.Write("1. 실행한다  2. 취소");
-
-                            ConsoleKeyInfo key = Console.ReadKey(true);
-
-                            inputkey = key.KeyChar.ToString(); //읽어온 키값을 char형으로 변환후 다시 string으로 변환함(비교용이)
-
-                            if (inputkey=="1"   || key.Key==ConsoleKey.Enter)   //1이나 엔터선택시 배틀시작
-                            {
-                                isBattle = true;
-                            }
-                            else if (inputkey == "2")
-                            {
-                                Console.ForegroundColor = ConsoleColor.Gray;
-                                Console.SetCursorPosition(vector.x, vector.y);
-                                Console.Write($"                                                            ");
-                                Console.SetCursorPosition(vector.x, vector.y + 1);
-                                Console.Write("                                                             ");
-                                isBattle = false;
-                            }
-                        }
-                            
-                     
+                 
                         break;
                     }
                 }
@@ -130,26 +98,52 @@ namespace SlayerOfSword
 
         public void BattleWindowReset(int y)
         {
-            Console.SetCursorPosition(0, y);         //아래 텍스트 지울것임
-            Console.WriteLine("                                                       ");
-            Console.WriteLine("                                                        ");
-            Console.WriteLine("                                                        ");
-            Console.WriteLine("                                                        ");
-            Console.WriteLine("                                                        ");
-            Console.WriteLine("                                                        ");
+            for (int i = y; i < Console.WindowHeight; i++)
+            {
+                Console.SetCursorPosition(0, i);         //아래 텍스트 지울것임
+
+                for (int j = 0; j < Console.WindowWidth; j++)
+                {
+                    Console.Write(" ");
+                }
+            }
+
             Console.SetCursorPosition(0, y);         //원래 입력받은 커서자리로 돌려놓음
         }
 
-
-
-        public void Battle(Player _player, Monster _monster)  //전투 메서드
+        public void Battle(Player _player, Monster _monster, out bool? isRun)  //전투 메서드
         {
             int trun = 0;   //턴이 홀수면 플레이어턴 , 짝수면 몬스터의턴
+            isRun = false; //도망여부
 
             string monsterAttack = null;
             int playerDemage = 0;
             int monsterDemage = 0;
             int monsterSkillDemage;
+
+
+            //무기등급이 레전드면 몬스터방어무시 , 몬스터방어력 =0으로만듦
+            if (_player.playerWeapon[0].itemGrade == ItemGrade.Legend)
+            {
+                vector.x = 0;   //텍스트 작성위치 지정
+                vector.y = Console.WindowHeight - 10;
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.SetCursorPosition(0, vector.y);
+                string LegendWeaponText = ($"{_player.playerWeapon[0].itemName}의 힘으로 몬스터의 방어를 무시합니다..");
+
+                for (int i = 0; i < LegendWeaponText.Length; i++)
+                {
+                    Console.Write(LegendWeaponText[i]);
+                    Thread.Sleep(50);
+                }
+
+                Thread.Sleep(500);
+
+                ((LegendWeapon)_player.playerWeapon[0]).guardBreak(_monster);
+            }
+
+
+
             MonsterSKillList usemonsterSkill;   //몬스터의 턴에서 사용할 몬스터의 스킬저장
 
             while (Player.currentHp >= 0 && _monster.currentMonsterHp>=0)        //플레이어의 hp 혹은 몬스터 hp가 0이하로 가면 끝
@@ -216,20 +210,16 @@ namespace SlayerOfSword
                         Thread.Sleep(300);
                         Console.SetCursorPosition(0, vector.y);
                         Console.WriteLine("                                                                                         ");
-
+                        
+                        
+                        _monster.currentMonsterHp -= playerDemage;     //몬스터의 방어력을제외
                         if (_monster.currentMonsterHp <= 0)     //몬스터의 Hp가 0이하면 0 으로 지정
                         {
-                           
-                          
                                 _monster.currentMonsterHp = 0;
                                 break;  //배틀종료 - 반복문탈출
-                            
-                               
+                                 
                         }
-                        else
-                        {
-                            _monster.currentMonsterHp -= playerDemage;     //몬스터의 방어력을제외
-                        }
+                    
 
                         trun++; //턴 증감
                     }
@@ -305,15 +295,14 @@ namespace SlayerOfSword
 
                         if (isUseSkill==true)   //스킬을 사용했을때만 턴증감 사용못함(mp부족)이면 턴증감없음
                         {
+                            _monster.currentMonsterHp -= playerDemage;     //몬스터의 방어력을제외
+
                             if (_monster.currentMonsterHp <= 0)     //몬스터의 Hp가 0이하면 0 으로 지정
                             {
                                  _monster.currentMonsterHp = 0;
                                 break;
                             }
-                            else
-                            {
-                                _monster.currentMonsterHp -= playerDemage;     //몬스터의 방어력을제외
-                            }
+                           
 
                             trun++; //턴 증감
                         }
@@ -333,6 +322,7 @@ namespace SlayerOfSword
                             Thread.Sleep(50);
                         }
                         Thread.Sleep(300);
+                        isRun = true;
                         break;
                     }
 
@@ -387,15 +377,13 @@ namespace SlayerOfSword
                         Console.SetCursorPosition(0, vector.y);
                         Console.WriteLine("                                                                                         ");
 
+                        Player.currentHp -= monsterDemage;     //몬스터의 방어력을제외한 데미지 입힘
 
                         if (Player.currentHp <= 0)     //몬스터의 Hp가 0이하면 0 으로 지정
                         {
                             Player.currentHp = 0;
                         }
-                        else
-                        {
-                            Player.currentHp -= monsterDemage;     //몬스터의 방어력을제외한 데미지 입힘
-                        }
+                        
                         trun++;
                     }
 
@@ -426,19 +414,16 @@ namespace SlayerOfSword
                         Console.SetCursorPosition(0, vector.y);
                         Console.WriteLine("                                                                                         ");
 
+                        Player.currentHp -= monsterDemage;     //몬스터의 방어력을제외한 데미지 입힘
 
                         if (Player.currentHp <= 0)     //몬스터의 Hp가 0이하면 0 으로 지정
                         {
                             Player.currentHp = 0;
                         }
-                        else
-                        {
-                            Player.currentHp -= monsterDemage;     //몬스터의 방어력을제외한 데미지 입힘
-                        }
+                        
 
                         trun++;
                     }
-
 
                 }
             }
@@ -446,26 +431,36 @@ namespace SlayerOfSword
             //몬스터가 죽었을경우 그리고 드래곤슬레이어일 경우엔 보상출력 X
             if (_monster.currentMonsterHp <= 0 && _monster.MonsterName != MonsterList.DragonSlayer.ToString())    
             {
-                _monster.PrintMonsterText(_monster.MonsterName, _monster.monsterRewardGold); //보상획득
+                if (_monster.MonsterName == MonsterList.Dragon.ToString())
+                {
+                    BattlePage.clearDragon += 1;    //드래곤클리어시 드래곤클리어횟수1증감
+                }
+                _monster.PrintMonsterText(_monster, _monster.monsterRewardGold); //보상획득
+              
+            }
+            //드래곤슬레이어 2페 잡으면 보상
+            else if(_monster.currentMonsterHp <= 0 && _monster.MonsterName == MonsterList.DragonSlayer.ToString() && _monster.isPage2 == true)
+            {
+                _monster.PrintMonsterText(_monster, _monster.monsterRewardGold); //보상획득
             }
 
-
             //플레이어가 죽었을경우 패배문구출력
-            else if(Player.currentHp<=0)
+            else if (Player.currentHp <= 0)
             {
                 BattleWindowReset(vector.y);
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine("You Lose...");
                 Thread.Sleep(1000);
-                for(int i =1; i<=(int)MonsterList.Back; i++)  //몬스터 텍스트색 찾기
+                for (int i = 1; i <= (int)MonsterList.Back; i++)  //몬스터 텍스트색 찾기
                 {
-                    if(((MonsterList)i).ToString() == _monster.MonsterName)
+                    if (((MonsterList)i).ToString() == _monster.MonsterName)
                     {
                         _monster.PrintMonsterText(_monster.playerLoseText, (ConsoleColor)MonstercolorIndex[i]);
                         break;
                     }
-                    
-                }
 
+                }
+                Console.ForegroundColor = ConsoleColor.Gray;
                 Player.currentHp = 1;  //피 1증가.
             }
         }

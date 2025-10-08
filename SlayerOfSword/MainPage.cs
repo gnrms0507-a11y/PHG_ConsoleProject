@@ -45,8 +45,8 @@ namespace SlayerOfSword
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.DarkRed;
 
-            vector.x = 5;  //텍스트를 입력하기위한 커서좌표 지정
-            vector.y = 8;
+            vector.x = 10;  //텍스트를 입력하기위한 커서좌표 지정
+            vector.y = 10;
 
             for(int i= 1; i<= (int)Menu.Back; i++)    //위 선언한 열거형 메뉴 출력
             {
