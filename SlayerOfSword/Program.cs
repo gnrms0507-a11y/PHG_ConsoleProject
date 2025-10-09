@@ -87,11 +87,11 @@ namespace SlayerOfSword
            
             #endregion
 
-            //테스트용
-            Inventory.playerInventory.Add(new Weapon(WeaponList.LongSword, 5, ItemGrade.Epic));
-            Inventory.playerInventory.Add(new UniqueWeapon(WeaponList.Lumina, 6, ItemGrade.Unique));
-            Inventory.playerInventory.Add(new LegendWeapon(WeaponList.Eternity, 15, ItemGrade.Legend));
-            Inventory.playerInventory.Add(new Armor(ArmorList.CelestialMail, 5,ItemGrade.Rare));
+            ////테스트용
+            //Inventory.playerInventory.Add(new Weapon(WeaponList.LongSword, 5, ItemGrade.Epic));
+            //Inventory.playerInventory.Add(new UniqueWeapon(WeaponList.Lumina, 6, ItemGrade.Unique));
+            //Inventory.playerInventory.Add(new LegendWeapon(WeaponList.Eternity, 15, ItemGrade.Legend));
+            //Inventory.playerInventory.Add(new Armor(ArmorList.CelestialMail, 5,ItemGrade.Rare));
 
             while (!isGameOff)    //게임시작. (무한반복시작!)
             {
