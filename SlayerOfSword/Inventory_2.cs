@@ -44,7 +44,7 @@ namespace SlayerOfSword
                     else if (item.itemCategory == "Armor")
                     {
                         Console.ForegroundColor = ConsoleColor.Gray;
-                        Console.WriteLine($"┗ 추가 방어력: {((Armor)item).plusDefense} 추가 Hp: {((Armor)item).plusHp} 추가 Mp: {((Armor)item).plusMp}");
+                        Console.WriteLine($"┗ 추가 방어력: {((Armor)item).plusDefense}");
                     }
                     itemCount++;
                 }

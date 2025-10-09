@@ -140,6 +140,8 @@ namespace SlayerOfSword
                 Thread.Sleep(500);
 
                 ((LegendWeapon)_player.playerWeapon[0]).guardBreak(_monster);
+
+                Console.ForegroundColor = ConsoleColor.Gray;
             }
 
 

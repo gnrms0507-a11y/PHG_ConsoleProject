@@ -1,16 +1,61 @@
 ﻿using EnumManager;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace SlayerOfSword
 {
-    
+    //무기,방어구
+    public enum WeaponList
+    {
+        TrainingSword, LongSword, IronBlade, CrimsonSaber, Frostbrand, Thunderclash, Lumina, Ragnarok, Eternity
+    }
+
+    public enum ArmorList
+    {
+        TrainingArmor, IronMail, ScoutArmor, CrimsonMail, CelestialMail, Stormplate, FrostSentinel, Thunderplate, DivineSentinel
+    }
+
     public abstract partial class Monster      //고블린 ~ 스노우맨 세팅
     {
-        
-         public enum MonsterSKillList       //몬스터들이 사용할 스킬리스트
+        public static List<Weapon> dropWeapons = new List<Weapon>();
+
+        public static List<Armor> dropArmors = new List<Armor>();
+
+        //정적생성자로 몬스터 드랍아이템 리스트에 추가
+        static Monster()
+        {
+            dropWeapons.Add(new Weapon(WeaponList.LongSword, 7, ItemGrade.Normal));
+            dropWeapons.Add(new Weapon(WeaponList.IronBlade, 8, ItemGrade.Normal));
+
+            dropWeapons.Add(new Weapon(WeaponList.CrimsonSaber, 14, ItemGrade.Rare));
+            dropWeapons.Add(new Weapon(WeaponList.Frostbrand, 16, ItemGrade.Rare));
+
+            dropWeapons.Add(new Weapon(WeaponList.Thunderclash, 25, ItemGrade.Epic));
+
+            dropWeapons.Add(new UniqueWeapon(WeaponList.Lumina, 38, ItemGrade.Unique));
+            dropWeapons.Add(new UniqueWeapon(WeaponList.Ragnarok, 40, ItemGrade.Unique));
+
+            dropWeapons.Add(new LegendWeapon(WeaponList.Eternity, 50, ItemGrade.Legend));
+
+
+            
+            dropArmors.Add(new Armor(ArmorList.ScoutArmor, 7, ItemGrade.Normal));
+            dropArmors.Add(new Armor(ArmorList.IronMail, 9, ItemGrade.Normal));
+
+            dropArmors.Add(new Armor(ArmorList.CrimsonMail, 16, ItemGrade.Rare));
+            dropArmors.Add(new Armor(ArmorList.CelestialMail, 18, ItemGrade.Rare));
+
+            dropArmors.Add(new Armor(ArmorList.Stormplate, 25, ItemGrade.Epic));
+            dropArmors.Add(new Armor(ArmorList.FrostSentinel, 28, ItemGrade.Epic));
+
+            dropArmors.Add(new Armor(ArmorList.Thunderplate, 42, ItemGrade.Unique));
+
+            dropArmors.Add(new Armor(ArmorList.DivineSentinel, 55, ItemGrade.Legend));
+        }
+        public enum MonsterSKillList       //몬스터들이 사용할 스킬리스트
         {
             GoblinNormalAttack,ThrowRock,
 
@@ -185,8 +230,8 @@ namespace SlayerOfSword
             this.MonsterName = MonsterList.Goblin.ToString();
             this.MonsterHp = 100;
             this.MonsterMp = 50;
-            this.MonsterPower = 15;
-            this.MonsterDefense = 4;
+            this.MonsterPower = 25;
+            this.MonsterDefense = 10;
             this.currentMonsterHp = 100;
             this.currentMonsterMp = 50;
             this.monsterRewardGold = 15;
@@ -198,9 +243,9 @@ namespace SlayerOfSword
 
             //고블린의 아이템 보상목록
             this.monsterRewardItem = new Item[3];
-            this.monsterRewardItem[0] = new Weapon(WeaponList.LongSword, 4, ItemGrade.Normal);
-            this.monsterRewardItem[1] = new Armor(ArmorList.IronMail, 5,PlusHp:50, PlusMp:30, ItemGrade.Normal);
-            this.monsterRewardItem[2] = new Armor(ArmorList.ScoutArmor, 5,PlusHp:60, PlusMp:40, ItemGrade.Normal);
+            this.monsterRewardItem[0] = dropWeapons[0];
+            this.monsterRewardItem[1] = dropArmors[0];
+            this.monsterRewardItem[2] = dropArmors[1];
 
 
             PrintMonsterText(this.monsterCreateText, ConsoleColor.Green);     // 몬스터 대사치기
@@ -232,8 +277,8 @@ namespace SlayerOfSword
             this.MonsterName = MonsterList.Ghoul.ToString();
             this.MonsterHp = 150;
             this.MonsterMp = 65;
-            this.MonsterPower = 20;
-            this.MonsterDefense = 6;
+            this.MonsterPower = 32;
+            this.MonsterDefense = 14;
             this.currentMonsterHp = 150;
             this.currentMonsterMp = 65;
             this.monsterRewardGold = 25;
@@ -243,10 +288,10 @@ namespace SlayerOfSword
 
             //구울의 아이템 보상목록
             this.monsterRewardItem = new Item[4];
-            this.monsterRewardItem[0] = new Weapon(WeaponList.IronBlade, 6, ItemGrade.Normal);
-            this.monsterRewardItem[1] = new Armor(ArmorList.ScoutArmor, 5, PlusHp: 60, PlusMp: 40, ItemGrade.Normal);
-            this.monsterRewardItem[2] = new Weapon(WeaponList.CrimsonSaber, 10, ItemGrade.Rare);
-            this.monsterRewardItem[3] = new Armor(ArmorList.CrimsonMail, 8, PlusHp: 80, PlusMp: 60, ItemGrade.Rare);
+            this.monsterRewardItem[0] = dropWeapons[1];
+            this.monsterRewardItem[1] = dropArmors[1];
+            this.monsterRewardItem[2] = dropWeapons[2];
+            this.monsterRewardItem[3] = dropArmors[2];
 
 
             PrintMonsterText(this.monsterCreateText, ConsoleColor.Magenta);     // 몬스터 대사치기
@@ -276,8 +321,8 @@ namespace SlayerOfSword
             this.MonsterName = MonsterList.SnowMan.ToString();
             this.MonsterHp = 270;
             this.MonsterMp = 100;
-            this.MonsterPower = 28;
-            this.MonsterDefense = 10;
+            this.MonsterPower = 40;
+            this.MonsterDefense = 20;
 
             this.currentMonsterHp = 270;
             this.currentMonsterMp = 100;
@@ -288,11 +333,11 @@ namespace SlayerOfSword
 
             //스노우맨의 아이템 보상목록
             this.monsterRewardItem = new Item[5];
-            this.monsterRewardItem[0] = new Weapon(WeaponList.IronBlade, 6, ItemGrade.Normal);
-            this.monsterRewardItem[1] = new Weapon(WeaponList.CrimsonSaber, 10, ItemGrade.Rare);
-            this.monsterRewardItem[2] = new Armor(ArmorList.CrimsonMail, 8, PlusHp: 80, PlusMp: 60, ItemGrade.Rare);
-            this.monsterRewardItem[3] = new Armor(ArmorList.CelestialMail, 10, PlusHp: 100, PlusMp: 60, ItemGrade.Rare);
-            this.monsterRewardItem[4] = new Weapon(WeaponList.Frostbrand, 16, ItemGrade.Epic);
+            this.monsterRewardItem[0] = dropWeapons[1];
+            this.monsterRewardItem[1] = dropWeapons[2];
+            this.monsterRewardItem[2] = dropArmors[2];
+            this.monsterRewardItem[3] = dropArmors[3];
+            this.monsterRewardItem[4] = dropWeapons[3];
 
             PrintMonsterText(this.monsterCreateText, ConsoleColor.DarkBlue);     // 몬스터 대사치기
    

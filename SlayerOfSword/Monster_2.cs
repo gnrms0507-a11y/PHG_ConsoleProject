@@ -55,8 +55,8 @@ namespace SlayerOfSword
                 this.MonsterName = MonsterList.Golem.ToString();
                 this.MonsterHp = 450;
                 this.MonsterMp = 280;
-                this.MonsterPower = 30;
-                this.MonsterDefense = 45;
+                this.MonsterPower = 40;
+                this.MonsterDefense = 55;
 
                 this.currentMonsterHp = 450;
                 this.currentMonsterMp = 280;
@@ -68,11 +68,11 @@ namespace SlayerOfSword
 
                 //골렘의 아이템 보상목록
                 this.monsterRewardItem = new Item[5];
-                this.monsterRewardItem[0] = new Weapon(WeaponList.Frostbrand, 16, ItemGrade.Epic);
-                this.monsterRewardItem[1] = new Armor(ArmorList.CelestialMail, 10, PlusHp: 100, PlusMp: 60, ItemGrade.Rare);
-                this.monsterRewardItem[2] = new Weapon(WeaponList.Thunderclash, 18, ItemGrade.Epic);
-                this.monsterRewardItem[3] = new Armor(ArmorList.Stormplate, 15, PlusHp: 150, PlusMp: 100, ItemGrade.Epic);
-                this.monsterRewardItem[4] = new Armor(ArmorList.FrostSentinel, 20, PlusHp: 180, PlusMp: 120, ItemGrade.Unique);
+                this.monsterRewardItem[0] = dropWeapons[3];
+                this.monsterRewardItem[1] = dropArmors[3];
+                this.monsterRewardItem[2] = dropWeapons[4];
+                this.monsterRewardItem[3] = dropArmors[4];
+                this.monsterRewardItem[4] = dropArmors[5];
 
 
 
@@ -102,8 +102,8 @@ namespace SlayerOfSword
                 this.MonsterName = MonsterList.Dragon.ToString();
                 this.MonsterHp = 750;
                 this.MonsterMp = 480;
-                this.MonsterPower = 70;
-                this.MonsterDefense = 40;
+                this.MonsterPower = 85;
+                this.MonsterDefense = 55;
                 this.currentMonsterHp = 750;
                 this.currentMonsterMp = 480;
                 this.monsterRewardGold = 320;
@@ -113,12 +113,12 @@ namespace SlayerOfSword
 
                 //드래곤의 아이템 보상목록
                 this.monsterRewardItem = new Item[6];
-                this.monsterRewardItem[0] = new Weapon(WeaponList.Thunderclash, 18, ItemGrade.Epic);
-                this.monsterRewardItem[1] = new UniqueWeapon(WeaponList.Lumina, 25, ItemGrade.Unique);
-                this.monsterRewardItem[2] = new UniqueWeapon(WeaponList.Ragnarok, 28, ItemGrade.Unique);
-                this.monsterRewardItem[3] = new Armor(ArmorList.Stormplate, 15, PlusHp: 150, PlusMp: 100, ItemGrade.Epic);
-                this.monsterRewardItem[4] = new Armor(ArmorList.FrostSentinel, 20, PlusHp: 180, PlusMp: 120, ItemGrade.Unique);
-                this.monsterRewardItem[5] = new Armor(ArmorList.Thunderplate, 22, PlusHp: 200, PlusMp: 120, ItemGrade.Unique);
+                this.monsterRewardItem[0] = dropWeapons[4];
+                this.monsterRewardItem[1] = dropWeapons[5];
+                this.monsterRewardItem[2] = dropWeapons[6];
+                this.monsterRewardItem[3] = dropArmors[4];
+                this.monsterRewardItem[4] = dropArmors[5];
+                this.monsterRewardItem[5] = dropArmors[6];
 
                 PrintMonsterText(this.monsterCreateText, ConsoleColor.Red);     // 몬스터 대사치기
 
@@ -147,8 +147,8 @@ namespace SlayerOfSword
                 this.MonsterName = MonsterList.DragonSlayer.ToString(); //페이즈 1
                 this.MonsterHp = 600;
                 this.MonsterMp = 350;
-                this.MonsterPower = 65;
-                this.MonsterDefense = 35;
+                this.MonsterPower = 75;
+                this.MonsterDefense = 50;
                 this.currentMonsterHp = 600;
                 this.currentMonsterMp = 350;
                 
@@ -188,8 +188,8 @@ namespace SlayerOfSword
                 this.MonsterName = MonsterList.DragonSlayer.ToString();
                 this.MonsterHp = 1000;
                 this.MonsterMp = 650;
-                this.MonsterPower = 85;
-                this.MonsterDefense = 40;
+                this.MonsterPower = 100;
+                this.MonsterDefense = 60;
                 this.currentMonsterHp = 1000;
                 this.currentMonsterMp = 650;
                 this.isPage2 = true;
@@ -200,12 +200,12 @@ namespace SlayerOfSword
 
                 //드래곤슬레이어의 아이템 보상목록
                 this.monsterRewardItem = new Item[6];
-                this.monsterRewardItem[0] = new UniqueWeapon(WeaponList.Lumina, 25, ItemGrade.Unique);
-                this.monsterRewardItem[1] = new UniqueWeapon(WeaponList.Ragnarok, 28, ItemGrade.Unique);
-                this.monsterRewardItem[2] = new LegendWeapon(WeaponList.Eternity, 40, ItemGrade.Legend);
-                this.monsterRewardItem[3] = new Armor(ArmorList.FrostSentinel, 20, PlusHp: 180, PlusMp: 120, ItemGrade.Unique);
-                this.monsterRewardItem[4] = new Armor(ArmorList.Thunderplate, 22, PlusHp: 200, PlusMp: 120, ItemGrade.Unique);
-                this.monsterRewardItem[5] = new Armor(ArmorList.DivineSentinel, 40, PlusHp: 280, PlusMp: 200, ItemGrade.Legend);
+                this.monsterRewardItem[0] = dropWeapons[5];
+                this.monsterRewardItem[1] = dropWeapons[6];
+                this.monsterRewardItem[2] = dropWeapons[7];
+                this.monsterRewardItem[3] = dropArmors[5];
+                this.monsterRewardItem[4] = dropArmors[6];
+                this.monsterRewardItem[5] = dropArmors[7];
 
                 PrintMonsterText(this.monsterCreateText, ConsoleColor.DarkRed);     // 몬스터 대사치기
 

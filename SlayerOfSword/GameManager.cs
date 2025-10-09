@@ -10,6 +10,7 @@ using EnumManager;
 
 namespace SlayerOfSword
 {
+
     delegate void GameStart();  //게임실행 델리게이트 생성
     struct TextVector      //텍스트 작성 위치 선정
     {
@@ -128,8 +129,6 @@ namespace SlayerOfSword
 
 
         }
-
-
 
 
     }

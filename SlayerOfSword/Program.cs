@@ -33,17 +33,6 @@ namespace EnumManager       //게임에 사용되는 열거형을 관리하는 �
     {
         Normal, Rare, Epic, Unique, Legend
     }
-
-    //무기,방어구
-    public enum WeaponList
-    {
-        TrainingSword, LongSword, IronBlade, CrimsonSaber, Frostbrand, Thunderclash, Lumina, Ragnarok, Eternity
-    }
-
-    public enum ArmorList
-    {
-        TrainingArmor, IronMail, ScoutArmor, CrimsonMail, CelestialMail, Stormplate, FrostSentinel, Thunderplate, DivineSentinel
-    }
 }
 
 namespace SlayerOfSword
@@ -95,15 +84,15 @@ namespace SlayerOfSword
 
             bool? isBack = null; //인벤토리창에서 취소선택했을때 ,기본값 null
 
-
+           
             #endregion
 
             //테스트용
             Inventory.playerInventory.Add(new Weapon(WeaponList.LongSword, 5, ItemGrade.Epic));
             Inventory.playerInventory.Add(new UniqueWeapon(WeaponList.Lumina, 6, ItemGrade.Unique));
             Inventory.playerInventory.Add(new LegendWeapon(WeaponList.Eternity, 15, ItemGrade.Legend));
-            Inventory.playerInventory.Add(new Armor(ArmorList.CelestialMail, 5, 100, 100, ItemGrade.Rare));
-     
+            Inventory.playerInventory.Add(new Armor(ArmorList.CelestialMail, 5,ItemGrade.Rare));
+
             while (!isGameOff)    //게임시작. (무한반복시작!)
             {
                 //메인페이지 출력

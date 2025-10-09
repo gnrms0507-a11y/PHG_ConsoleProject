@@ -146,7 +146,7 @@ namespace SlayerOfSword
                 ItemColor(_player.playerArmor[0]);
                 Console.WriteLine($"[{_player.playerArmor[0].itemName}]");
                 Console.ForegroundColor = ConsoleColor.Gray;
-                Console.WriteLine($"┗ 추가 방어력: {_player.playerArmor[0].plusDefense} 추가 Hp: {_player.playerArmor[0].plusHp} 추가 Mp: {_player.playerArmor[0].plusMp}");
+                Console.WriteLine($"┗ 추가 방어력: {_player.playerArmor[0].plusDefense}");
             }
 
             Console.WriteLine($"");
@@ -241,7 +241,7 @@ namespace SlayerOfSword
                     else if(item.itemCategory == "Armor")
                     {
                         Console.ForegroundColor = ConsoleColor.Gray;
-                        Console.WriteLine($"┗ 추가 방어력: {((Armor)item).plusDefense} 추가 Hp: {((Armor)item).plusHp} 추가 Mp: {((Armor)item).plusMp}");
+                        Console.WriteLine($"┗ 추가 방어력: {((Armor)item).plusDefense}");
                     }
                     itemCount++;
                 }
@@ -302,7 +302,7 @@ namespace SlayerOfSword
                                     _player.playerWeapon[0] = (Weapon)a;
 
                                     //플레이어 능력치 업데이트
-                                    _player.UpdatePlayer(_player.playerWeapon[0], _player.playerArmor[0]);
+                                    _player.UpdatePlayer(_player.playerWeapon[0]);
                                     _player.PlayerBasicSkill(_player);
 
                                     //유니크장비 이상일시 스킬추가함
@@ -348,28 +348,9 @@ namespace SlayerOfSword
                                     _player.playerArmor[0] = (Armor)a;
 
                                     //플레이어 능력치 업데이트
-                                    _player.UpdatePlayer(_player.playerWeapon[0], _player.playerArmor[0]);
+                                    _player.UpdatePlayer(_player.playerArmor[0]);
 
-                                    //무기가 유니크 이상이면 스킬추가
-
-                                    if (_player.playerWeapon[0].itemGrade == ItemGrade.Unique)
-                                    {
-                                        _player.PlayerBasicSkill(_player);
-                                        ((UniqueWeapon)_player.playerWeapon[0]).NewSkill(ItemGrade.Unique, _player);
-
-                                    }
-                                    else if (_player.playerWeapon[0].itemGrade == ItemGrade.Legend)
-                                    {
-                                        _player.PlayerBasicSkill(_player);
-                                        ((LegendWeapon)_player.playerWeapon[0]).NewSkill(ItemGrade.Legend, _player);
-
-                                    }
-                                    else
-                                    {
-                                        _player.PlayerBasicSkill(_player);
-                                    }
-                                   
-
+                                  
                                     //while문탈출
                                     isKeyInput = true;
                                     //다시 인벤토리 접속시 로딩없이 접속하게함

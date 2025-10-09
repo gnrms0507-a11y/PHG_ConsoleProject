@@ -34,19 +34,20 @@ namespace SlayerOfSword
         public Player(string _Name)     //플레이어 맨처음 생성시 스탯과 이름
         {
             power = 25;
-            armor = 2;
-            maxHp = 280;    //원래280임
-            maxMp = 120;
-            currentHp = 280;
-            currentMp = 120;
+            armor = 5;
+            maxHp = 350;    
+            maxMp = 200;
+            currentHp = 350;
+            currentMp = 200;
             playerName = _Name;
 
             //플레이어 기본 무기,방어구 장착
             playerWeapon[0] = new Weapon(WeaponList.TrainingSword,3,ItemGrade.Normal);
-            playerArmor[0] = new Armor(ArmorList.TrainingArmor,_defense: 3,PlusHp:50, PlusMp:20, ItemGrade.Normal);
+            playerArmor[0] = new Armor(ArmorList.TrainingArmor,_defense: 3, ItemGrade.Normal);
 
             //플레이어 공,방 업데이트
-            UpdatePlayer(playerWeapon[0], playerArmor[0]);
+            UpdatePlayer(playerWeapon[0]);
+            UpdatePlayer(playerArmor[0]);
 
             //플레이어 기본스킬 3개 등록
             PlayerBasicSkill();
@@ -125,34 +126,22 @@ namespace SlayerOfSword
             Console.ForegroundColor = ConsoleColor.Gray;
         }
 
-        //플레이어 능력치 업데이트 무기 ,방어구 장착
-        public void UpdatePlayer(Weapon _weapon , Armor _armor)   
+        //플레이어 능력치 업데이트 아이템장착
+        public void UpdatePlayer(Item item)   
         {
-            power = 25;
-            armor = 2;
-            maxHp = 280;    //원래280임
-            maxMp = 120;
-        
-            this.power += _weapon.plusPower;
-            this.armor += _armor.plusDefense;
+          
+            //무기면 공격력증가
+            if (item.itemCategory =="Weapon")
+            {
+                power = 25;
+                this.power += ((Weapon)item).plusPower;
+            }
+            //방어구면 방어력 증가
+            else if(item.itemCategory == "Armor")
+            {
+                armor = 5;
+                this.armor += ((Armor)item).plusDefense;
 
-            if (currentHp >= maxHp)  //현재 HP와 MP가 최대 HP ,MP 이상일시 현재체력을 최대 HP,MP로 지정 아닐경우 max Hp/ Mp 만 증감
-            {
-                this.maxHp += _armor.plusHp;
-                currentHp = maxHp;
-            }
-            else if(currentHp < maxHp)
-            {
-                this.maxHp += _armor.plusHp;
-            }
-            if (currentMp >= maxMp)
-            {
-                this.maxMp += _armor.plusMp;
-                currentMp = maxMp;
-            }
-            else if( currentMp < maxMp)
-            {
-                this.maxMp += _armor.plusMp;
             }
 
         }

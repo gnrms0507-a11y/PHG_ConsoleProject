@@ -21,8 +21,6 @@ namespace SlayerOfSword
     public partial class Item 
     {
         public string itemName { get; set; }
-        public int plusHp { get; set; }
-        public int plusMp { get; set; }
        
         public ItemGrade itemGrade { get; set; }
 
@@ -34,7 +32,7 @@ namespace SlayerOfSword
     {
         public int plusPower { get; set; }
 
-        //무기 생성 - 공격력의 증감
+        //무기 생성 - 공격력
         public Weapon(WeaponList weaponName,int _power,ItemGrade _itemGrade)
         {
             this.itemName = weaponName.ToString();
@@ -162,12 +160,10 @@ namespace SlayerOfSword
     {
         public int plusDefense { get; set; }
         //방어구 생성
-        public Armor(ArmorList armorName,int _defense , int PlusHp , int PlusMp, ItemGrade _itemGrade)
+        public Armor(ArmorList armorName,int _defense ,ItemGrade _itemGrade)
         {
             this.itemName= armorName.ToString();
             this.plusDefense += _defense;
-            this.plusHp += PlusHp;
-            this.plusMp += PlusMp;
             this.itemGrade = _itemGrade;
             this.itemCategory = "Armor";
         }
