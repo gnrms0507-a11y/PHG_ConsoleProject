@@ -27,18 +27,18 @@ namespace SlayerOfSword
         //정적생성자로 몬스터 드랍아이템 리스트에 추가
         static Monster()
         {
-            dropWeapons.Add(new Weapon(WeaponList.LongSword, 7, ItemGrade.Normal));
-            dropWeapons.Add(new Weapon(WeaponList.IronBlade, 8, ItemGrade.Normal));
+            dropWeapons.Add(new Weapon(WeaponList.LongSword, 8, ItemGrade.Normal));
+            dropWeapons.Add(new Weapon(WeaponList.IronBlade, 10, ItemGrade.Normal));
 
-            dropWeapons.Add(new Weapon(WeaponList.CrimsonSaber, 14, ItemGrade.Rare));
-            dropWeapons.Add(new Weapon(WeaponList.Frostbrand, 16, ItemGrade.Rare));
+            dropWeapons.Add(new Weapon(WeaponList.CrimsonSaber, 18, ItemGrade.Rare));
+            dropWeapons.Add(new Weapon(WeaponList.Frostbrand, 20, ItemGrade.Rare));
 
-            dropWeapons.Add(new Weapon(WeaponList.Thunderclash, 25, ItemGrade.Epic));
+            dropWeapons.Add(new Weapon(WeaponList.Thunderclash, 30, ItemGrade.Epic));
 
-            dropWeapons.Add(new UniqueWeapon(WeaponList.Lumina, 38, ItemGrade.Unique));
-            dropWeapons.Add(new UniqueWeapon(WeaponList.Ragnarok, 40, ItemGrade.Unique));
+            dropWeapons.Add(new UniqueWeapon(WeaponList.Lumina, 45, ItemGrade.Unique));
+            dropWeapons.Add(new UniqueWeapon(WeaponList.Ragnarok, 48, ItemGrade.Unique));
 
-            dropWeapons.Add(new LegendWeapon(WeaponList.Eternity, 50, ItemGrade.Legend));
+            dropWeapons.Add(new LegendWeapon(WeaponList.Eternity, 60, ItemGrade.Legend));
 
 
             

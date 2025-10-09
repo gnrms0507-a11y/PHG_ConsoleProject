@@ -33,12 +33,12 @@ namespace SlayerOfSword
 
         public Player(string _Name)     //플레이어 맨처음 생성시 스탯과 이름
         {
-            power = 25;
+            power = 30;
             armor = 5;
             maxHp = 350;    
-            maxMp = 200;
+            maxMp = 250;
             currentHp = 350;
-            currentMp = 200;
+            currentMp = 250;
             playerName = _Name;
 
             //플레이어 기본 무기,방어구 장착
@@ -133,7 +133,7 @@ namespace SlayerOfSword
             //무기면 공격력증가
             if (item.itemCategory =="Weapon")
             {
-                power = 25;
+                power = 30;
                 this.power += ((Weapon)item).plusPower;
             }
             //방어구면 방어력 증가

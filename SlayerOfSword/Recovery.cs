@@ -140,6 +140,16 @@ namespace SlayerOfSword
                     isRecovery = true;
                     Thread.Sleep(500);
                 }
+
+                //플레이어의 골드가 100아래일때
+                else if(Player.gold<100)
+                {
+                    HealingStationWindowReset(textVector.y);
+                    Console.WriteLine($"Gold가 부족합니다 . (100Gold소모)");
+                    isHpFull = true;
+                    isRecovery = true;
+                    Thread.Sleep(500);
+                }
                 else
                 {
                     Console.WriteLine($"Hp를 {_player.maxHp - Player.currentHp} 만큼 회복합니다.");
@@ -160,6 +170,16 @@ namespace SlayerOfSword
                     isMpFull = true;
                     isRecovery = true;
                 }
+
+                else if (Player.gold < 70)
+                {
+                    HealingStationWindowReset(textVector.y);
+                    Console.WriteLine($"Gold가 부족합니다 . (70Gold소모)");
+                    isHpFull = true;
+                    isRecovery = true;
+                    Thread.Sleep(500);
+                }
+
                 else
                 {
                     Console.WriteLine($"Mp를 {_player.maxMp - Player.currentMp} 만큼 회복합니다.");
