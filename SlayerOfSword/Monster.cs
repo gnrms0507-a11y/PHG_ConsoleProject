@@ -74,13 +74,13 @@ namespace SlayerOfSword
 
         //몬스터 스킬의 데미지 나열
         public int[] monsterSkillDemage = new int[(int)MonsterSKillList.End]
-        { 0, 18,
-            0, 24, 22,
-            0, 35, 32,
-            0, 38, 40,
-            0, 100, 78, 75,
-            0, 80, 68,
-            0, 120, 135, 185}; //맨끝은 End =0
+        { 0, 28,
+            0, 34, 32,
+            0, 45, 42,
+            0, 48, 50,
+            0, 110, 88, 85,
+            0, 90, 78,
+            0, 140, 150, 180}; //맨끝은 End =0
 
         public string MonsterName { get; set; }
         public int MonsterHp { get; set; }
