@@ -250,7 +250,9 @@ namespace SlayerOfSword
 
             PrintMonsterText(this.monsterCreateText, ConsoleColor.Green);     // 몬스터 대사치기
             Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("                                                  \r\n                             +==                  \r\n                            **+=-+=               \r\n                         ***++*====               \r\n                    ****##+*+++++=+               \r\n                  #%%%#+*%#**++++++               \r\n                ###%%@@%**#*+**==++               \r\n               ######%@@@%###*#%++                \r\n               %%%%##%@%%*#####++                 \r\n              #%%@@%%%%%#* %#%@*+                 \r\n              ###%%%%# %**                        \r\n             %@@##%##% @%%%%                      \r\n            %%@@@%%#%%#  @%##@                    \r\n            ##%%%%%#%%%#%**%*+                    \r\n            %%%@@%%%##%##***++                    \r\n            @%%%%%@ %#%%###                       \r\n             @%%#%@%*%%#**+                       \r\n             %%*+#@@  %%#++                       \r\n              %#*+%%  %%##*=                      \r\n             ##%##   %%###*++                     \r\n             %##     %#****+*+                    \r\n            %#*     ##%#***++                     \r\n            #**#        %###***                   \r\n            ###*                                  \r\n           %#%###                                 \r\n           %%%%#                       ");
+            Console.ForegroundColor = ConsoleColor.Gray;
             Thread.Sleep(1500);
         }
 
@@ -296,8 +298,11 @@ namespace SlayerOfSword
 
             PrintMonsterText(this.monsterCreateText, ConsoleColor.Magenta);     // 몬스터 대사치기
             Console.Clear();
-
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            
             Console.WriteLine("                                                         \r\n                             ...                            \r\n                           :*%@%*-.                         \r\n                         .*@@@@@@@*.                        \r\n                         .%###@%#@#:                        \r\n                         .**.+++.=*.                        \r\n                          :%%@*%%#-.                        \r\n                           =++**=*.                         \r\n                           .%@@@@:                          \r\n                            .-@+.                           \r\n                            .=@*.                           \r\n                     :=*=*%*+*@#++##=+=-.                   \r\n                     -@-.+-:-+@#---#.-@#.                   \r\n                     =*.:+:::*@%-::=+.+#.                   \r\n                    .%-.+*--=*@%+=-+*.-@.                   \r\n                   .=%..*+:-+=@#=+:**:.@-                   \r\n                   .%- .*=+=-:@+:===+..#=.                  \r\n                  .=@. .***..-@*..=*#. **.                  \r\n                  .#@-  :=. .-@*. .=-..@%-                  \r\n                  -#%:      .=@#.     .#%+                  \r\n                  .+%.      .+@%:      :**.                 \r\n                  .+*   .+*+:+@#:-*#=. .=#:                 \r\n                  .*+   +@@@@#@%#@@@@=. :+*.                \r\n                  .*=   .=%@%*@%%#@%-.  .++:                \r\n                  .#+   :=#*=.+=.=#%:-.  :#+.               \r\n                  .#+. .+@+=+=#+++=+@*.  .##:               \r\n                  -#*+:.:%:  ....  .@=. .+**=               \r\n                 .#*=+...#:        .@- .:-+#+.              \r\n                 .+=+=. .#:        :@:  .+=+=               \r\n                  .:-.  .#-        -@.   ...                \r\n                        .*=        =%.                      \r\n                        .#+       .*%.                      \r\n                        :@@:     .:%@-.                     ");
+
+            Console.ForegroundColor = ConsoleColor.Gray;
             Thread.Sleep(1500);
         }
 
@@ -340,10 +345,13 @@ namespace SlayerOfSword
             this.monsterRewardItem[4] = dropWeapons[3];
 
             PrintMonsterText(this.monsterCreateText, ConsoleColor.DarkBlue);     // 몬스터 대사치기
-   
+
 
             Console.Clear();
+            Console.ForegroundColor = ConsoleColor.DarkBlue;
             Console.WriteLine("           @@@@               \r\n         @@@@@@@@             \r\n        @@@@@@@@@             \r\n        @@@@@@@@@@            \r\n      @@@@@@@@@@@@@           \r\n   @@@@@@@@@@@@@@@@@@@        \r\n  @@@@@@@@@@@@@@@@@@@@@       \r\n  @@@@@@@@@@@@@@@@@@@@@@      \r\n @@@@@@@@@@@@@@@@@@@@@@@      \r\n @@@@@@@@@@@@@@@@@@@@@@@@     \r\n @@@@@@@@@@@@@@@@@@@@@@@@@    \r\n @@@@@@@@@@@@@@@@@@@@@@@@@@   \r\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ \r\n@@@@@ @@@@@@@@@@@@@@@@ @@@@@@@\r\n@@@@@ @@@@@@@@@@@@@@@@   @@@@@\r\n@@@@@@@@@@@@@@@@@@@@@@@     @ \r\n @@@@@@@@@@@@@@@@@@@@@@       \r\n @@@@ @@@@@@@@@@@@@@@@@       \r\n      @@@@@@@@@@@@@@@@@@      \r\n      @@@@@@@@ @@@@@@@@@      \r\n      @@@@@@@  @@@@@@@@@      \r\n      @@@@@@@   @@@@@@@@      \r\n      @@@@@@@    @@@@@@@      \r\n      @@@@@@@    @@@@@@@      \r\n      @@@@@@     @@@@@@@      \r\n      @@@@@@     @@@@@@@      \r\n     @@@@@@@      @@@@@@      \r\n     @@@@@@@      @@@@@@      \r\n     @@@@@@@      @@@@@@@     \r\n  @@@@@@@@@@      @@@@@@@@@@  \r\n@@@@@@@@@@@@      @@@@@@@@@@@@");
+            Console.ForegroundColor = ConsoleColor.Gray;
+
             Thread.Sleep(1500);
         }     
         public override MonsterSKillList MonsterTurn(out int mobSkillDemage)
