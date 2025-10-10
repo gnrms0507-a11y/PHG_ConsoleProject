@@ -113,9 +113,9 @@ namespace SlayerOfSword
 
                 foreach(T choice in values)
                 {
-                    int intVal = Convert.ToInt32(choice);
+                    int intVal = Convert.ToInt32(choice);   
 
-                    if(inputkey == intVal.ToString())
+                    if(inputkey == intVal.ToString())   //키와 알맞은 열거형 찾기
                     {
                         selectValue = choice;
                         isSelectMenu = true;

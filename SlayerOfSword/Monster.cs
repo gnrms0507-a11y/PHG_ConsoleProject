@@ -27,33 +27,33 @@ namespace SlayerOfSword
         //정적생성자로 몬스터 드랍아이템 리스트에 추가
         static Monster()
         {
-            dropWeapons.Add(new Weapon(WeaponList.LongSword, 8, ItemGrade.Normal));
-            dropWeapons.Add(new Weapon(WeaponList.IronBlade, 10, ItemGrade.Normal));
+            dropWeapons.Add(new Weapon(WeaponList.LongSword, 10, ItemGrade.Normal));
+            dropWeapons.Add(new Weapon(WeaponList.IronBlade, 12, ItemGrade.Normal));
 
-            dropWeapons.Add(new Weapon(WeaponList.CrimsonSaber, 18, ItemGrade.Rare));
-            dropWeapons.Add(new Weapon(WeaponList.Frostbrand, 20, ItemGrade.Rare));
+            dropWeapons.Add(new Weapon(WeaponList.CrimsonSaber, 20, ItemGrade.Rare));
+            dropWeapons.Add(new Weapon(WeaponList.Frostbrand, 22, ItemGrade.Rare));
 
-            dropWeapons.Add(new Weapon(WeaponList.Thunderclash, 30, ItemGrade.Epic));
+            dropWeapons.Add(new Weapon(WeaponList.Thunderclash, 33, ItemGrade.Epic));
 
-            dropWeapons.Add(new UniqueWeapon(WeaponList.Lumina, 45, ItemGrade.Unique));
-            dropWeapons.Add(new UniqueWeapon(WeaponList.Ragnarok, 48, ItemGrade.Unique));
+            dropWeapons.Add(new UniqueWeapon(WeaponList.Lumina, 48, ItemGrade.Unique));
+            dropWeapons.Add(new UniqueWeapon(WeaponList.Ragnarok, 50, ItemGrade.Unique));
 
-            dropWeapons.Add(new LegendWeapon(WeaponList.Eternity, 60, ItemGrade.Legend));
+            dropWeapons.Add(new LegendWeapon(WeaponList.Eternity, 65, ItemGrade.Legend));
 
 
             
-            dropArmors.Add(new Armor(ArmorList.ScoutArmor, 7, ItemGrade.Normal));
-            dropArmors.Add(new Armor(ArmorList.IronMail, 9, ItemGrade.Normal));
+            dropArmors.Add(new Armor(ArmorList.ScoutArmor, 8, ItemGrade.Normal));
+            dropArmors.Add(new Armor(ArmorList.IronMail, 10, ItemGrade.Normal));
 
-            dropArmors.Add(new Armor(ArmorList.CrimsonMail, 16, ItemGrade.Rare));
-            dropArmors.Add(new Armor(ArmorList.CelestialMail, 18, ItemGrade.Rare));
+            dropArmors.Add(new Armor(ArmorList.CrimsonMail, 18, ItemGrade.Rare));
+            dropArmors.Add(new Armor(ArmorList.CelestialMail, 20, ItemGrade.Rare));
 
-            dropArmors.Add(new Armor(ArmorList.Stormplate, 25, ItemGrade.Epic));
-            dropArmors.Add(new Armor(ArmorList.FrostSentinel, 28, ItemGrade.Epic));
+            dropArmors.Add(new Armor(ArmorList.Stormplate, 30, ItemGrade.Epic));
+            dropArmors.Add(new Armor(ArmorList.FrostSentinel, 32, ItemGrade.Epic));
 
-            dropArmors.Add(new Armor(ArmorList.Thunderplate, 42, ItemGrade.Unique));
+            dropArmors.Add(new Armor(ArmorList.Thunderplate, 45, ItemGrade.Unique));
 
-            dropArmors.Add(new Armor(ArmorList.DivineSentinel, 55, ItemGrade.Legend));
+            dropArmors.Add(new Armor(ArmorList.DivineSentinel, 60, ItemGrade.Legend));
         }
         public enum MonsterSKillList       //몬스터들이 사용할 스킬리스트
         {
@@ -74,13 +74,13 @@ namespace SlayerOfSword
 
         //몬스터 스킬의 데미지 나열
         public int[] monsterSkillDemage = new int[(int)MonsterSKillList.End]
-        { 0, 28,
-            0, 34, 32,
-            0, 45, 42,
-            0, 48, 50,
-            0, 110, 88, 85,
-            0, 90, 78,
-            0, 140, 150, 180}; //맨끝은 End =0
+        { 0, 35,
+            0, 38, 35,
+            0, 50, 44,
+            0, 52, 50,
+            0, 115, 92, 88,
+            0, 92, 80,
+            0, 150, 160, 180}; //맨끝은 End =0
 
         public string MonsterName { get; set; }
         public int MonsterHp { get; set; }
